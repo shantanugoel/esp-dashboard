@@ -48,11 +48,14 @@ fn main() {
     let url = "https://api.chucknorris.io/jokes/random";
 
     window.on_update_fact(move || {
-        let body = client.get(url, &headers).expect("Failed to get body");
-        log::info!("{}", body);
-        let v: Value = serde_json::from_str(&body).expect("Failed to parse json");
-        let fact = v["value"].as_str().unwrap_or("No fact found");
         let window = window_handle.upgrade().unwrap();
+        let body = client.get(url, &headers);
+        let fact = if let Ok(body) = body {
+            let v: Value = serde_json::from_str(&body).expect("Failed to parse json");
+            v["value"].as_str().unwrap_or("No fact found").to_string()
+        } else {
+            "Couldn't get fact. Check your connection or try again.".to_string()
+        };
         window.set_fact(SharedString::from(fact));
     });
 
