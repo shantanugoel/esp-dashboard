@@ -27,6 +27,7 @@ log = "0.4"
 esp-idf-svc = { version = "0.51", features = ["critical-section", "embassy-time-driver", "embassy-sync"] }
 waveshare-esp32-s3-lcd-7-bsp-rs = { path = "Y:/" }
 slint = { version = "1.11", default-features = false, features = ["compat-1-2", "unsafe-single-threaded", "libm", "renderer-software"] }
+toml-cfg = "0.2"
 
 [build-dependencies]
 embuild = "0.33"
