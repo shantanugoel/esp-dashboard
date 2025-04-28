@@ -48,6 +48,7 @@ fn main() {
     let url = "https://api.chucknorris.io/jokes/random";
 
     window.on_update_fact(move || {
+        wifi::wait_for_connection(&mut wifi_driver).expect("Failed to wait for connection");
         let window = window_handle.upgrade().unwrap();
         let body = client.get(url, &headers);
         let fact = if let Ok(body) = body {
